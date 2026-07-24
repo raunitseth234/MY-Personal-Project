@@ -5,10 +5,7 @@ celery_app = Celery(
     "rajesh_jewellers",
     broker=settings.REDIS_URL,
     backend=settings.REDIS_URL,
-    include=[
-        "app.tasks.order_emails",
-        "app.tasks.notifications",
-    ],
+    include=[],
 )
 
 celery_app.conf.update(
@@ -17,10 +14,4 @@ celery_app.conf.update(
     result_serializer="json",
     timezone="Asia/Kolkata",
     enable_utc=True,
-    beat_schedule={
-        "abandoned-cart-reminder": {
-            "task": "app.tasks.notifications.abandoned_cart_reminder",
-            "schedule": 86400.0,  # daily
-        },
-    },
 )

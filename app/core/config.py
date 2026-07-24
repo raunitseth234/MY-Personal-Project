@@ -19,11 +19,6 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
-    # Payment (Razorpay) - stub until keys provided
-    RAZORPAY_KEY_ID: Optional[str] = None
-    RAZORPAY_KEY_SECRET: Optional[str] = None
-    RAZORPAY_WEBHOOK_SECRET: Optional[str] = None
-
     # SMS (MSG91)
     MSG91_AUTH_KEY: Optional[str] = None
     MSG91_TEMPLATE_ID: Optional[str] = None

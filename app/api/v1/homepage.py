@@ -7,6 +7,7 @@ Homepage content APIs — all the sections visible in the frontend video:
 - Store locations
 - Chat widget
 """
+import json
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -48,7 +49,6 @@ async def get_announcements(
 ):
     cached = await redis.get("cache:announcements")
     if cached:
-        import json
         return json.loads(cached)
 
     result = await db.execute(
@@ -59,7 +59,6 @@ async def get_announcements(
     announcements = result.scalars().all()
     items = [AnnouncementResponse.model_validate(a) for a in announcements]
 
-    import json
     await redis.setex(
         "cache:announcements",
         300,
@@ -89,7 +88,6 @@ async def get_hero_banners(
     db: AsyncSession = Depends(get_db),
     redis=Depends(get_redis),
 ):
-    import json
     cached = await redis.get("cache:hero_banners")
     if cached:
         return json.loads(cached)
@@ -164,7 +162,6 @@ async def get_testimonials(
     db: AsyncSession = Depends(get_db),
     redis=Depends(get_redis),
 ):
-    import json
     cached = await redis.get("cache:testimonials")
     if cached:
         return json.loads(cached)
