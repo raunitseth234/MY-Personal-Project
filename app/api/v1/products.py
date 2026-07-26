@@ -5,11 +5,12 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy import func, or_, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
+from app.core.rate_limit import check_rate_limit
 from app.core.security import get_current_user_optional
 from app.db.mongo import get_view_history, get_search_logs
 from app.db.postgres import get_db
@@ -224,6 +225,7 @@ async def get_featured_products(
 
 @router.get("/products/search", response_model=PaginatedResponse)
 async def search_products(
+    request: Request,
     q: str = Query(..., min_length=1),
     page: int = Query(1, ge=1),
     limit: int = Query(20, le=50),
@@ -231,6 +233,9 @@ async def search_products(
     redis=Depends(get_redis),
     current_user: Optional[dict] = Depends(get_current_user_optional),
 ):
+    ip = request.client.host
+    await check_rate_limit(redis, f"rate:search:{ip}", limit=30, window_seconds=60)
+
     search_term = q.strip()
 
     # Full-text search with ILIKE fallback
@@ -452,10 +457,13 @@ async def add_review(
     data: dict,
     current_user: dict = Depends(get_current_user_optional),
     db: AsyncSession = Depends(get_db),
+    redis=Depends(get_redis),
 ):
     from app.models import Review as ReviewModel
     if not current_user:
         raise HTTPException(status_code=401, detail={"code": "NOT_AUTHENTICATED"})
+
+    await check_rate_limit(redis, f"rate:review:{current_user['sub']}", limit=5, window_seconds=3600)
 
     review = ReviewModel(
         product_id=product_id,

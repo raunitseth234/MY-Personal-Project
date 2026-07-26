@@ -10,10 +10,11 @@ Homepage content APIs — all the sections visible in the frontend video:
 import json
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.rate_limit import check_rate_limit
 from app.core.security import require_admin
 from app.db.mongo import get_chat_messages
 from app.db.postgres import get_db
@@ -229,6 +230,7 @@ chat_router = APIRouter(prefix="/chat", tags=["Chat"])
 @chat_router.post("/message")
 async def chat_message(
     data: ChatMessageRequest,
+    request: Request,
     db: AsyncSession = Depends(get_db),
     redis=Depends(get_redis),
 ):
@@ -237,6 +239,9 @@ async def chat_message(
     CHAT_MODE=faq  → keyword-based FAQ (works without any API key)
     CHAT_MODE=llm  → Groq LLM with tool-calling into live site data (needs GROQ_API_KEY)
     """
+    ip = request.client.host
+    await check_rate_limit(redis, f"rate:chat:{ip}", limit=15, window_seconds=60)
+
     service = ChatService()
     reply = await service.respond(data.session_id, data.message, db, redis)
 
