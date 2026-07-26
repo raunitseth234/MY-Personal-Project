@@ -1,4 +1,6 @@
 import asyncio
+import os
+
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
@@ -8,7 +10,13 @@ from app.db.postgres import Base, get_db
 from app.db.redis import get_redis
 from app.main import app
 
-TEST_DATABASE_URL = "postgresql+asyncpg://rajesh_user:rajesh_pass@localhost:5432/rajesh_test_db"
+# These are integration tests: they require a live Postgres. Override the target
+# with TEST_DATABASE_URL (e.g. to point at a testcontainer) — otherwise the
+# default local `rajesh_test_db` is used.
+TEST_DATABASE_URL = os.getenv(
+    "TEST_DATABASE_URL",
+    "postgresql+asyncpg://rajesh_user:rajesh_pass@localhost:5432/rajesh_test_db",
+)
 
 test_engine = create_async_engine(TEST_DATABASE_URL, echo=False)
 TestSessionLocal = async_sessionmaker(test_engine, class_=AsyncSession, expire_on_commit=False)

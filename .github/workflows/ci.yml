@@ -6,6 +6,25 @@ on:
   pull_request:
 
 jobs:
+  # Fast, isolated tier — no service containers. Pure logic (pricing, JWT,
+  # hashing). Gives quick feedback and proves these tests need zero services.
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies into a virtualenv
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --no-cache-dir -r requirements.txt
+
+      - name: Run unit tests (no services)
+        run: .venv/bin/python -m pytest app/tests/unit -v
+
   test:
     runs-on: ubuntu-latest
 

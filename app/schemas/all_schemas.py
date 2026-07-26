@@ -160,6 +160,28 @@ class CategoryResponse(BaseModel):
 CategoryResponse.model_rebuild()
 
 
+class CategoryCreate(BaseModel):
+    name: str
+    parent_id: Optional[UUID] = None
+    image_url: Optional[str] = None
+    display_order: int = 0
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, v):
+        v = v.strip()
+        if not v:
+            raise ValueError("Category name is required")
+        return v
+
+
+class CategoryUpdate(BaseModel):
+    name: Optional[str] = None
+    image_url: Optional[str] = None
+    display_order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+
 # ─────────────────────────────────────────────
 # PRODUCTS
 # ─────────────────────────────────────────────
@@ -371,6 +393,18 @@ class StockUpdate(BaseModel):
         if v < 0:
             raise ValueError("Stock cannot be negative")
         return v
+
+
+class ImageConfirmRequest(BaseModel):
+    image_url: str
+    is_primary: bool = False
+
+    @field_validator("image_url")
+    @classmethod
+    def validate_image_url(cls, v):
+        if not v or not v.strip():
+            raise ValueError("image_url is required")
+        return v.strip()
 
 
 class HeroBannerCreate(BaseModel):

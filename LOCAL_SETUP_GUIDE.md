@@ -512,18 +512,18 @@ docker-compose exec api python scripts/verify_images.py
 ### Testing
 
 ```bash
-# Run all tests (Docker)
+# Fast unit tier — no Postgres/Redis/Docker needed
+pytest app/tests/unit -v
+
+# Run all tests (Docker) — integration tier needs live Postgres + Redis
 docker-compose exec api pytest app/tests/ -v
 
-# Run specific test
-docker-compose exec api pytest app/tests/test_auth.py -v
-docker-compose exec api pytest app/tests/test_products.py -v
+# Run specific integration test
+docker-compose exec api pytest app/tests/integration/test_auth.py -v
+docker-compose exec api pytest app/tests/integration/test_products.py -v
 
 # With coverage
 docker-compose exec api pytest app/tests/ --cov=app --cov-report=term-missing
-
-# Local testing
-pytest app/tests/ -v
 ```
 
 ### Quick API Smoke Tests

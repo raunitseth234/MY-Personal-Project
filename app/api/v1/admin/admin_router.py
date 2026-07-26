@@ -16,6 +16,9 @@ from app.db.postgres import get_db
 from app.db.redis import get_redis
 from app.models import Category, Product, ProductImage, StoreLocation
 from app.schemas.all_schemas import (
+    CategoryCreate,
+    CategoryUpdate,
+    ImageConfirmRequest,
     MessageResponse,
     ProductCreate,
     ProductUpdate,
@@ -122,12 +125,21 @@ async def get_presigned_url(
 @router.post("/products/{product_id}/images/confirm")
 async def confirm_image_upload(
     product_id: str,
-    data: dict,
+    data: ImageConfirmRequest,
     admin=Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
-    image_url = data.get("image_url")
-    is_primary = data.get("is_primary", False)
+    storage = StorageService()
+    if not storage.is_valid_uploaded_image_url(data.image_url, product_id):
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "code": "INVALID_IMAGE_URL",
+                "message": "image_url must be the exact URL returned by /images/presign for this product.",
+            },
+        )
+    image_url = data.image_url
+    is_primary = data.is_primary
 
     if is_primary:
         # Unset other primary images
@@ -162,18 +174,18 @@ async def confirm_image_upload(
 
 @router.post("/categories", status_code=201)
 async def create_category(
-    data: dict,
+    data: CategoryCreate,
     admin=Depends(require_admin),
     db: AsyncSession = Depends(get_db),
     redis=Depends(get_redis),
 ):
-    slug = data["name"].lower().replace(" ", "-")
+    slug = data.name.lower().replace(" ", "-")
     cat = Category(
-        name=data["name"],
+        name=data.name,
         slug=slug,
-        parent_id=data.get("parent_id"),
-        image_url=data.get("image_url"),
-        display_order=data.get("display_order", 0),
+        parent_id=data.parent_id,
+        image_url=data.image_url,
+        display_order=data.display_order,
     )
     db.add(cat)
     await db.flush()
@@ -184,7 +196,7 @@ async def create_category(
 @router.put("/categories/{category_id}")
 async def update_category(
     category_id: str,
-    data: dict,
+    data: CategoryUpdate,
     admin=Depends(require_admin),
     db: AsyncSession = Depends(get_db),
     redis=Depends(get_redis),
@@ -193,9 +205,8 @@ async def update_category(
     cat = result.scalar_one_or_none()
     if not cat:
         raise HTTPException(status_code=404, detail={"code": "NOT_FOUND"})
-    for k in ("name", "image_url", "display_order", "is_active"):
-        if k in data:
-            setattr(cat, k, data[k])
+    for k, v in data.model_dump(exclude_unset=True).items():
+        setattr(cat, k, v)
     await redis.delete("cache:categories")
     return {"message": "Category updated"}
 

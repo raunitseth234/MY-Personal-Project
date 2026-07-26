@@ -14,10 +14,13 @@ TO ACTIVATE:
     - Bucket Policy: allow GetObject for *
     - CORS: allow PUT from your frontend domain
 """
+import re
 import uuid
 import logging
 from fastapi import HTTPException
 from app.core.config import settings
+
+_SAFE_IMAGE_EXT = re.compile(r"\.(jpg|jpeg|png|webp|gif)$", re.IGNORECASE)
 
 logger = logging.getLogger("rajesh.storage")
 
@@ -91,6 +94,25 @@ class StorageService:
             "expires_in": 300,
             "instructions": "PUT image file to presigned_url, then call /confirm with public_url",
         }
+
+    def is_valid_uploaded_image_url(self, image_url: str, product_id: str) -> bool:
+        """
+        Confirms image_url could only have come from this service's own
+        generate_presigned_url() for this exact product — i.e. it's the
+        `https://{bucket}.s3.{region}.amazonaws.com/products/{product_id}/<uuid>.<ext>`
+        shape, nothing else. Used to validate /images/confirm input instead of
+        trusting an admin-supplied URL verbatim.
+        """
+        if not self._is_configured():
+            return False
+        expected_prefix = (
+            f"https://{settings.AWS_S3_BUCKET}.s3.{settings.AWS_REGION}"
+            f".amazonaws.com/products/{product_id}/"
+        )
+        if not image_url.startswith(expected_prefix):
+            return False
+        key_suffix = image_url[len(expected_prefix):]
+        return bool(_SAFE_IMAGE_EXT.search(key_suffix)) and "/" not in key_suffix
 
     async def delete_image(self, file_key: str) -> bool:
         """Deletes an image from S3 by its key."""

@@ -34,6 +34,42 @@ Open Swagger docs: **http://localhost:8000/docs**
 
 ---
 
+## Local Development Without Docker
+
+> ⚠️ **Always install into an isolated virtualenv.** Running
+> `pip install -r requirements.txt` against your global/system Python will
+> downgrade shared packages and break other Python tools on your machine. The
+> project targets the Python version in `.python-version` (**3.11**).
+
+```bash
+# 1. Create and activate an isolated environment (once)
+python -m venv .venv
+source .venv/bin/activate        # macOS/Linux
+# .venv\Scripts\Activate.ps1     # Windows PowerShell
+# source .venv/Scripts/activate  # Windows Git Bash
+
+# 2. Install dependencies
+pip install -r requirements.txt          # direct deps (top-level pinned)
+# — or, for the exact pinned resolution (direct + transitive):
+pip install -r requirements.lock         # see note below: lock is platform-specific
+
+# 3. Run the fast unit tests (no services needed)
+pytest app/tests/unit -v
+```
+
+`.venv/` is gitignored. Postgres/MongoDB/Redis are still needed for running the
+app itself and the integration test tier — use `docker-compose up -d` for those.
+
+### Dependency files
+
+| File | Purpose |
+|------|---------|
+| `requirements.txt` | Human-maintained **direct** dependencies (edit this to add/upgrade). |
+| `requirements.lock` | Exact resolution (direct + transitive). **Platform-specific** — the committed copy was generated on Windows, so Linux-only deps like `uvloop` are absent; regenerate on the Linux deploy target for a reproducible prod install. Regenerate with `pip freeze --exclude-editable > requirements.lock` inside a clean `.venv`. |
+| `.python-version` | Pins the interpreter version (3.11) for pyenv / tooling. |
+
+---
+
 ## Architecture
 
 ```
@@ -102,12 +138,24 @@ These require external accounts — code stubs are ready, just add keys to `.env
 
 ## Test Commands
 
-```bash
-# Run all tests
-docker-compose exec api pytest app/tests/ -v
+Tests come in two tiers:
 
-# Run specific test file
-docker-compose exec api pytest app/tests/test_auth.py -v
+| Tier | Path | Needs services? | Use for |
+|------|------|-----------------|---------|
+| **Unit** | `app/tests/unit` | No — pure logic (pricing, JWT, hashing) | Fast local feedback, pre-commit |
+| **Integration** | `app/tests/integration` | Yes — live Postgres + Redis | End-to-end API behaviour |
+
+```bash
+# Fast tier — no Docker/Postgres/Redis required, runs in ~seconds.
+# Only needs the app installed in your venv (see "Local Development Without Docker").
+pytest app/tests/unit -v
+
+# Integration tier — requires a live Postgres (and Redis for auth flows).
+# Point at a different DB with TEST_DATABASE_URL if needed.
+docker-compose exec api pytest app/tests/integration -v
+
+# Everything (integration tier still needs Postgres/Redis)
+docker-compose exec api pytest app/tests -v
 
 # Full smoke test
 curl http://localhost:8000/health
