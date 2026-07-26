@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      # Build-time only placeholder — NEXT_PUBLIC_API_URL is inlined into the client
+      # bundle, so CI needs *a* value to typecheck/build against. Real deployments must
+      # set the actual production URL via their own env var / secret, not this value.
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npx tsc --noEmit
+
+      - run: npm run build

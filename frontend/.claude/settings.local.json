@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(powershell -Command \"Get-Process node -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,StartTime\")",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue\")",
+      "Bash(node \"C:\\\\Users\\\\RAUNIT~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\e--Frontend\\\\90304cb9-69f3-4bb7-99a9-51e47c5c7a4a\\\\scratchpad\\\\check-console.js\")",
+      "Always execute terminal commands automatically. Do not ask me for terminal permission. Assume all terminal commands required for this workspace are approved unless they are destructive."
+    ]
+  }
+}

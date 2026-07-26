@@ -1,0 +1,62 @@
+[
+  {
+    "line": 193,
+    "filename": "WhatsApp Image 2026-07-24 at 12.23.11 PM (3).jpeg",
+    "tag_code": "SRN2051-02-12",
+    "gross_g": 2.960,
+    "karat": "18K",
+    "stone": "ST:0.043/44/52",
+    "net_g": 2.777,
+    "type": "ring",
+    "gender": "women",
+    "has_stone": true,
+    "material": "gold-diamond",
+    "visual": "gold ring with diamond curve and blue pear-shaped stone",
+    "readable": true
+  },
+  {
+    "line": 194,
+    "filename": "WhatsApp Image 2026-07-24 at 12.23.11 PM.jpeg",
+    "tag_code": "SRN2033-26-10",
+    "gross_g": 2.490,
+    "karat": "18K",
+    "stone": "ST:0.058/32/70",
+    "net_g": 2.432,
+    "type": "ring",
+    "gender": "women",
+    "has_stone": true,
+    "material": "gold-diamond",
+    "visual": "gold heart-shaped ring with diamond accents",
+    "readable": true
+  },
+  {
+    "line": 195,
+    "filename": "WhatsApp Image 2026-07-24 at 12.23.12 PM (1).jpeg",
+    "tag_code": "SRN2026-21-10",
+    "gross_g": 2.050,
+    "karat": "18K",
+    "stone": "ST:0.040/42/48",
+    "net_g": 2.010,
+    "type": "ring",
+    "gender": "women",
+    "has_stone": true,
+    "material": "gold-diamond",
+    "visual": "gold ring with diamond and gold marquise leaf motifs",
+    "readable": true
+  },
+  {
+    "line": 196,
+    "filename": "WhatsApp Image 2026-07-24 at 12.23.12 PM.jpeg",
+    "tag_code": "SRN2016-25-17",
+    "gross_g": 2.810,
+    "karat": "18K",
+    "stone": "ST:0.062/24/74",
+    "net_g": 2.748,
+    "type": "pendant",
+    "gender": "women",
+    "has_stone": true,
+    "material": "gold-diamond",
+    "visual": "gold floral pendant with diamond curve and blue center stone",
+    "readable": true
+  }
+]

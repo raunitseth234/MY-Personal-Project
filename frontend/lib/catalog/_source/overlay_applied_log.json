@@ -1,0 +1,410 @@
+[
+  {
+    "id": "prod-026",
+    "sku": "ITP0616",
+    "before": "4.345",
+    "after": "15.419"
+  },
+  {
+    "id": "prod-027",
+    "sku": "ITP0617",
+    "before": "5.046",
+    "after": "10.571"
+  },
+  {
+    "id": "prod-032",
+    "sku": "IMCSHS1366-02",
+    "before": "2.983",
+    "after": "9.7"
+  },
+  {
+    "id": "prod-034",
+    "sku": "IMCSHS1361-04",
+    "before": "0.875",
+    "after": "4.013"
+  },
+  {
+    "id": "prod-041",
+    "sku": "SHS2527-04",
+    "before": "3.531",
+    "after": "17.721"
+  },
+  {
+    "id": "prod-044",
+    "sku": "CHN-017",
+    "before": "10.85",
+    "after": "10.85"
+  },
+  {
+    "id": "prod-094",
+    "sku": "lumina-diamond-necklace-094",
+    "before": "20.672",
+    "after": "20.672"
+  },
+  {
+    "id": "prod-095",
+    "sku": "FNNKSN71567WA",
+    "before": "15.413",
+    "after": "20.833"
+  },
+  {
+    "id": "prod-096",
+    "sku": "rivaah-diamond-necklace-096",
+    "before": "12.053",
+    "after": "12.053"
+  },
+  {
+    "id": "prod-097",
+    "sku": "nakshatra-diamond-necklace-097",
+    "before": "27.543",
+    "after": "27.543"
+  },
+  {
+    "id": "prod-098",
+    "sku": "zoya-diamond-necklace-098",
+    "before": "13.98",
+    "after": "13.98"
+  },
+  {
+    "id": "prod-099",
+    "sku": "FNMCKN81016WA",
+    "before": "14.816",
+    "after": "19.623"
+  },
+  {
+    "id": "prod-100",
+    "sku": "BNG-006",
+    "before": "31.35",
+    "after": "31.35"
+  },
+  {
+    "id": "prod-101",
+    "sku": "BNG-005",
+    "before": "47.3",
+    "after": "47.3"
+  },
+  {
+    "id": "prod-118",
+    "sku": "zoya-diamond-pendant-set-118",
+    "before": "2.993",
+    "after": "15.231"
+  },
+  {
+    "id": "prod-130",
+    "sku": "blossom-diamond-earrings-130",
+    "before": "6.87",
+    "after": "6.87"
+  },
+  {
+    "id": "prod-134",
+    "sku": "lumina-diamond-pendant-set-134",
+    "before": "9.874",
+    "after": "9.874"
+  },
+  {
+    "id": "prod-142",
+    "sku": "royal-diamond-necklace-142",
+    "before": "21.568",
+    "after": "21.568"
+  },
+  {
+    "id": "prod-150",
+    "sku": "STUD100677663",
+    "before": "6.984",
+    "after": "6.984"
+  },
+  {
+    "id": "prod-156",
+    "sku": "rivaah-diamond-pendant-set-156",
+    "before": "5.669",
+    "after": "5.669"
+  },
+  {
+    "id": "prod-160",
+    "sku": "MPD127-10",
+    "before": "13.905",
+    "after": "13.905"
+  },
+  {
+    "id": "prod-162",
+    "sku": "royal-diamond-necklace-162",
+    "before": "13.809",
+    "after": "13.809"
+  },
+  {
+    "id": "prod-167",
+    "sku": "radiant-gold-bracelet-167",
+    "before": "38.4",
+    "after": "38.4"
+  },
+  {
+    "id": "prod-203",
+    "sku": "BNG-001",
+    "before": "20.25",
+    "after": "20.25"
+  },
+  {
+    "id": "prod-204",
+    "sku": "BNG-002",
+    "before": "19.72",
+    "after": "19.72"
+  },
+  {
+    "id": "prod-205",
+    "sku": "BNG-003",
+    "before": "20.07",
+    "after": "20.07"
+  },
+  {
+    "id": "prod-206",
+    "sku": "BNG-004",
+    "before": "20.33",
+    "after": "20.33"
+  },
+  {
+    "id": "prod-209",
+    "sku": "CHN-015",
+    "before": "4.522",
+    "after": "4.522"
+  },
+  {
+    "id": "prod-210",
+    "sku": "HAR-023",
+    "before": "17.64",
+    "after": "17.64"
+  },
+  {
+    "id": "prod-211",
+    "sku": "HAR-024",
+    "before": "14.92",
+    "after": "14.92"
+  },
+  {
+    "id": "prod-212",
+    "sku": "HAR-025",
+    "before": "17.58",
+    "after": "17.58"
+  },
+  {
+    "id": "prod-217",
+    "sku": "HAR-032",
+    "before": "13.809",
+    "after": "13.809"
+  },
+  {
+    "id": "prod-218",
+    "sku": "HAR-033",
+    "before": "9.874",
+    "after": "9.874"
+  },
+  {
+    "id": "prod-220",
+    "sku": "HAR-035",
+    "before": "21.568",
+    "after": "21.568"
+  },
+  {
+    "id": "prod-221",
+    "sku": "HAR-036",
+    "before": "8.855",
+    "after": "8.855"
+  },
+  {
+    "id": "prod-222",
+    "sku": "HAR-039",
+    "before": "12.7",
+    "after": "12.7"
+  },
+  {
+    "id": "prod-223",
+    "sku": "HAR-040",
+    "before": "9.1",
+    "after": "9.1"
+  },
+  {
+    "id": "prod-224",
+    "sku": "HAR-041",
+    "before": "20.035",
+    "after": "20.035"
+  },
+  {
+    "id": "prod-226",
+    "sku": "SH92527-04",
+    "before": "3.531",
+    "after": "17.721"
+  },
+  {
+    "id": "prod-232",
+    "sku": "HAR-049",
+    "before": "20.672",
+    "after": "20.672"
+  },
+  {
+    "id": "prod-233",
+    "sku": "HAR-051",
+    "before": "27.543",
+    "after": "27.543"
+  },
+  {
+    "id": "prod-234",
+    "sku": "HAR-052",
+    "before": "12.053",
+    "after": "12.053"
+  },
+  {
+    "id": "prod-235",
+    "sku": "HAR-053",
+    "before": "13.98",
+    "after": "13.98"
+  },
+  {
+    "id": "prod-236",
+    "sku": "HAR-055",
+    "before": "5.669",
+    "after": "5.669"
+  },
+  {
+    "id": "prod-270",
+    "sku": "ERG-067",
+    "before": "6.87",
+    "after": "6.87"
+  },
+  {
+    "id": "prod-271",
+    "sku": "PDS-078",
+    "before": "6.984",
+    "after": "6.984"
+  },
+  {
+    "id": "prod-374",
+    "sku": "RNG-091",
+    "before": "7.66",
+    "after": "7.66"
+  },
+  {
+    "id": "prod-386",
+    "sku": "NCK-018",
+    "before": "22.71",
+    "after": "22.71"
+  },
+  {
+    "id": "prod-387",
+    "sku": "NCK-019",
+    "before": "19.79",
+    "after": "19.79"
+  },
+  {
+    "id": "prod-388",
+    "sku": "MGS-020",
+    "before": "5.68",
+    "after": "3.11"
+  },
+  {
+    "id": "prod-391",
+    "sku": "MGS-023",
+    "before": "5.36",
+    "after": "5.83"
+  },
+  {
+    "id": "prod-395",
+    "sku": "MGS-027",
+    "before": "7.09",
+    "after": "3.21"
+  },
+  {
+    "id": "prod-396",
+    "sku": "MGS-028",
+    "before": "4.52",
+    "after": "3.12"
+  },
+  {
+    "id": "prod-400",
+    "sku": "MGS-032",
+    "before": "6.16",
+    "after": "5.24"
+  },
+  {
+    "id": "prod-408",
+    "sku": "MGS-040",
+    "before": "6.76",
+    "after": "5.69"
+  },
+  {
+    "id": "prod-442",
+    "sku": "CHN-018",
+    "before": "5.31",
+    "after": "5.31"
+  },
+  {
+    "id": "prod-445",
+    "sku": "CHN-021",
+    "before": "11.52",
+    "after": "11.52"
+  },
+  {
+    "id": "prod-449",
+    "sku": "CHN-025",
+    "before": "8.2",
+    "after": "9.2"
+  },
+  {
+    "id": "prod-451",
+    "sku": "CHN-027",
+    "before": "6.85",
+    "after": "10.51"
+  },
+  {
+    "id": "prod-461",
+    "sku": "BNG-037",
+    "before": "18.44",
+    "after": "18.44"
+  },
+  {
+    "id": "prod-462",
+    "sku": "BNG-019",
+    "before": "18.82",
+    "after": "18.82"
+  },
+  {
+    "id": "prod-465",
+    "sku": "BNG-022",
+    "before": "20.34",
+    "after": "19.78"
+  },
+  {
+    "id": "prod-478",
+    "sku": "ERG-107",
+    "before": "11.17",
+    "after": "11.17"
+  },
+  {
+    "id": "prod-479",
+    "sku": "ERG-108",
+    "before": "13.29",
+    "after": "13.29"
+  },
+  {
+    "id": "prod-480",
+    "sku": "ERG-086",
+    "before": "11.11",
+    "after": "11.11"
+  },
+  {
+    "id": "prod-498",
+    "sku": "ERG-104",
+    "before": "5.789",
+    "after": "5.789"
+  },
+  {
+    "id": "prod-505",
+    "sku": "HAR-109",
+    "before": "27.24",
+    "after": "27.24"
+  },
+  {
+    "id": "prod-508",
+    "sku": "HAR-112",
+    "before": "22.3",
+    "after": "28.45"
+  }
+]
