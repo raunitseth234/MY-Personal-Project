@@ -139,7 +139,9 @@ export default function Header({ categories }: { categories: Category[] }) {
           <div className="overflow-hidden">
             <div className="flex items-center justify-center gap-3 border-t border-neutral-100 py-2 text-[11px] text-neutral-600 md:gap-5">
               <a
-                href="#"
+                href={brand.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 transition hover:text-maroon"
               >
                 <MapPin className="h-3 w-3 text-gold-dark" />
