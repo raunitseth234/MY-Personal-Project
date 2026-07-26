@@ -9,7 +9,6 @@ import {
   Instagram,
   MapPin,
   Menu,
-  Smartphone,
   Store,
   User,
   Youtube,
@@ -146,14 +145,6 @@ export default function Header({ categories }: { categories: Category[] }) {
               >
                 <MapPin className="h-3 w-3 text-gold-dark" />
                 Locate Our Store
-              </a>
-              <span className="h-3 w-px bg-neutral-200" />
-              <a
-                href="#"
-                className="flex items-center gap-1.5 transition hover:text-maroon"
-              >
-                <Smartphone className="h-3 w-3 text-gold-dark" />
-                Download Our App
               </a>
               <span className="h-3 w-px bg-neutral-200" />
               <span className="flex items-center gap-3 text-neutral-500">

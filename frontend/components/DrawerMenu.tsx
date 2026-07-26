@@ -146,15 +146,6 @@ export default function DrawerMenu({ open, onClose, categories, user }: Props) {
                 <MapPin className="h-4 w-4 text-gold" />
                 Locate Our Store
               </motion.a>
-              <motion.a
-                variants={itemVariants}
-                href="#"
-                onClick={onClose}
-                className="flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm text-neutral-700 transition duration-200 hover:bg-ivory hover:text-maroon"
-              >
-                <User className="h-4 w-4 text-gold" />
-                Download Our App
-              </motion.a>
             </motion.div>
 
             <div className="border-t border-neutral-100 px-5 py-4">

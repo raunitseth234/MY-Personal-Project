@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Phone } from 'lucide-react';
+import { Instagram, MapPin, Phone } from 'lucide-react';
 import { brand } from '@/lib/data';
 import WhatsAppIcon from './ui/WhatsAppIcon';
 
@@ -14,9 +14,10 @@ const items = [
     icon: <Instagram className="h-5 w-5" />,
   },
   {
-    label: 'Facebook',
-    href: '#',
-    icon: <Facebook className="h-5 w-5" />,
+    label: 'Directions',
+    href: brand.mapsUrl,
+    icon: <MapPin className="h-5 w-5" />,
+    external: true,
   },
   {
     label: 'Call',
@@ -35,6 +36,7 @@ export default function MobileContactBar() {
         <a
           key={item.label}
           href={item.href}
+          {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           className="flex flex-col items-center gap-1 py-2.5 text-maroon transition duration-200 hover:bg-ivory active:scale-95"
         >
           {item.icon}
