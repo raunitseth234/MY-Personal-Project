@@ -6,6 +6,9 @@ class Settings(BaseSettings):
     # App
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:3000"
+    # Comma-separated list of additional allowed CORS origins (e.g. staging/preview domains).
+    # FRONTEND_URL is always allowed; this extends it without requiring code changes.
+    CORS_EXTRA_ORIGINS: str = ""
 
     # Database
     DATABASE_URL: str

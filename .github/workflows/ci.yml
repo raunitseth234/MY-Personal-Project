@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: rajesh_user
+          POSTGRES_PASSWORD: rajesh_pass
+          POSTGRES_DB: rajesh_test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rajesh_user -d rajesh_test_db"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      mongo:
+        image: mongo:7
+        ports:
+          - 27017:27017
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql+asyncpg://rajesh_user:rajesh_pass@localhost:5432/rajesh_db
+      MONGO_URL: mongodb://localhost:27017
+      MONGO_DB: rajesh_jewellers_ci
+      REDIS_URL: redis://localhost:6379/0
+      JWT_SECRET: ci-only-secret-key-not-used-anywhere-else-minimum-32-chars
+      ENVIRONMENT: test
+      FRONTEND_URL: http://localhost:3000
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies into a virtualenv
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --no-cache-dir -r requirements.txt
+
+      - name: Compile check
+        run: .venv/bin/python -m compileall -q app
+
+      - name: Run tests
+        run: .venv/bin/python -m pytest app/tests -v
+
+      - name: Build production Docker image
+        run: docker build -t rajesh-backend-api:ci .

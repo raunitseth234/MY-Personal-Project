@@ -1,0 +1,75 @@
+# Production-shaped compose: no source bind-mounts, no --reload, uses the image's
+# built-in CMD (plain uvicorn, no --reload). Point DATABASE_URL/MONGO_URL/REDIS_URL at
+# managed services for a real deployment, or run `docker-compose -f docker-compose.prod.yml
+# up -d` as-is for a self-hosted single-VPS setup using the bundled Postgres/Mongo/Redis.
+#
+# Usage: docker-compose -f docker-compose.prod.yml --env-file .env up -d --build
+
+services:
+  api:
+    build: .
+    container_name: rajesh_api
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  celery_worker:
+    build: .
+    container_name: rajesh_celery
+    env_file: .env
+    depends_on:
+      - redis
+      - postgres
+    command: celery -A app.core.celery_app worker --loglevel=info
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: rajesh_postgres
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-rajesh_db}
+      POSTGRES_USER: ${POSTGRES_USER:-rajesh_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-rajesh_user} -d ${POSTGRES_DB:-rajesh_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: rajesh_mongo
+    volumes:
+      - mongodata:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: rajesh_redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  mongodata:
